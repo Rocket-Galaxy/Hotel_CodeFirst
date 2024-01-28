@@ -27,7 +27,7 @@ namespace Hotel_CodeFirst.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=Rocket\SQLEXPRESS;Database=HotelKenji;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=Rocket\SQLEXPRESS;Database=Hotel;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Hotel_CodeFirst.Models
         public int NumeroQuartos_Filial { get; set; }
         [Required]
         public string Endereco_Filial { get; set; }
-        [StringLength(100)]
+
         [Required]
         public int QuantidadeEstrelas_Filial { get; set; }
 
