@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 namespace Hotel_CodeFirst.Models
 { 
     public class Cliente
     {
         [Key]
+
         public int Codigo_Cliente { get; set; }
 
         [Required]

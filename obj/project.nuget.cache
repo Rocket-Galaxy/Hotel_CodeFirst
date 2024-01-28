@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LkMcMpufFN2+vzt15B4zkLtbvmfj9XOoRuUFybbpQKpjc0xy5a4UD7OzDhkuWrccxcSP/Xq+wPXWQy8ecgveCw==",
+  "dgSpecHash": "C4h/i9Uy4GFtlY4T4TK3/ud6Qc20A95Asf+Z75cymBoHOd7VomXd5IKlLckpwjNwVP2PSwCAn8/HFtr4aev5XQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dylan\\Desktop\\PUCPR\\Hotel_CodeFirst\\Hotel_CodeFirst.csproj",
+  "projectFilePath": "C:\\Users\\dylan\\Desktop\\PUCPR\\Hotel_CodeFirst\\Hotel_CodeFirst\\Hotel_CodeFirst.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dylan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\dylan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

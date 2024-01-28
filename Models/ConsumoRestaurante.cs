@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 
 namespace Hotel_CodeFirst.Models
@@ -8,6 +10,7 @@ namespace Hotel_CodeFirst.Models
     public class ConsumoRestaurante
     {
         [Key]
+
         public int Codigo_ConsumoRestaurante { get; set; }
 
         [Required]
@@ -16,8 +19,10 @@ namespace Hotel_CodeFirst.Models
         [Required]
         public bool EntregueNoQuarto { get; set; }
 
-        public ContaReserva ContaReserva { get; set; }
+        [ForeignKey("Codigo_ContaReserva")]
+        public int Codigo_ContaReserva { get; set; }
 
-        public Restaurante Restaurante { get; set; }
+        [ForeignKey("Codigo_Restaurante")]
+        public int Codigo_Restaurante { get; set; }
     }
 }

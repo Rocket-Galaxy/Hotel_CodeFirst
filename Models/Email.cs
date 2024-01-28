@@ -1,24 +1,24 @@
+using System;
 using System.Collections.Generic;
-using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel_CodeFirst.Models
-{ 
-
-    public class Frigobar
+{
+    public class Email
     {
         [Key]
 
-        public int Codigo_Frigobar { get; set; }
+        public int Codigo_Email { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string Nome_ItemFrigobar { get; set; }
+        [ForeignKey("Codigo_Cliente")]
+        public int Codigo_Cliente { get; set; }
 
         [Required]
-        public decimal Preco_ItemFrigobar { get; set; }
+        [StringLength(150)]
+        public string? Endereco_Email { get; set; }
+
     }
-
 }

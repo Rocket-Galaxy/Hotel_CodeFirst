@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel_CodeFirst.Migrations
 {
     [DbContext(typeof(Hotel))]
-    [Migration("20240128144443_CreateDatabase")]
+    [Migration("20240128230642_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -56,10 +56,10 @@ namespace Hotel_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo_ConsumoFrigobar"));
 
-                    b.Property<int>("ContaReservaCodigo_ContaReserva")
+                    b.Property<int>("Codigo_ContaReserva")
                         .HasColumnType("int");
 
-                    b.Property<int>("FrigobarCodigo_Frigobar")
+                    b.Property<int>("Codigo_Frigobar")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
@@ -67,9 +67,9 @@ namespace Hotel_CodeFirst.Migrations
 
                     b.HasKey("Codigo_ConsumoFrigobar");
 
-                    b.HasIndex("ContaReservaCodigo_ContaReserva");
+                    b.HasIndex("Codigo_ContaReserva");
 
-                    b.HasIndex("FrigobarCodigo_Frigobar");
+                    b.HasIndex("Codigo_Frigobar");
 
                     b.ToTable("ConsumoFrigobares");
                 });
@@ -82,20 +82,20 @@ namespace Hotel_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo_ConsumoLavanderia"));
 
-                    b.Property<int>("ContaReservaCodigo_ContaReserva")
+                    b.Property<int>("Codigo_ContaReserva")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Codigo_ServicoLavanderia")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<int>("ServicoLavanderiaCodigo_ServicoLavanderia")
-                        .HasColumnType("int");
-
                     b.HasKey("Codigo_ConsumoLavanderia");
 
-                    b.HasIndex("ContaReservaCodigo_ContaReserva");
+                    b.HasIndex("Codigo_ContaReserva");
 
-                    b.HasIndex("ServicoLavanderiaCodigo_ServicoLavanderia");
+                    b.HasIndex("Codigo_ServicoLavanderia");
 
                     b.ToTable("ConsumosLavanderia");
                 });
@@ -108,7 +108,10 @@ namespace Hotel_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo_ConsumoRestaurante"));
 
-                    b.Property<int>("ContaReservaCodigo_ContaReserva")
+                    b.Property<int>("Codigo_ContaReserva")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Codigo_Restaurante")
                         .HasColumnType("int");
 
                     b.Property<bool>("EntregueNoQuarto")
@@ -117,14 +120,11 @@ namespace Hotel_CodeFirst.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<int>("RestauranteCodigo_Restaurante")
-                        .HasColumnType("int");
-
                     b.HasKey("Codigo_ConsumoRestaurante");
 
-                    b.HasIndex("ContaReservaCodigo_ContaReserva");
+                    b.HasIndex("Codigo_ContaReserva");
 
-                    b.HasIndex("RestauranteCodigo_Restaurante");
+                    b.HasIndex("Codigo_Restaurante");
 
                     b.ToTable("ConsumoRestaurantes");
                 });
@@ -145,6 +145,29 @@ namespace Hotel_CodeFirst.Migrations
                     b.ToTable("ContasReserva");
                 });
 
+            modelBuilder.Entity("Hotel_CodeFirst.Models.Email", b =>
+                {
+                    b.Property<int>("Codigo_Email")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo_Email"));
+
+                    b.Property<int>("Codigo_Cliente")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Endereco_Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Codigo_Email");
+
+                    b.HasIndex("Codigo_Cliente");
+
+                    b.ToTable("Emails");
+                });
+
             modelBuilder.Entity("Hotel_CodeFirst.Models.Endereco", b =>
                 {
                     b.Property<int>("Codigo_Endereco")
@@ -163,7 +186,7 @@ namespace Hotel_CodeFirst.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ClienteCodigo_Cliente")
+                    b.Property<int>("Codigo_Cliente")
                         .HasColumnType("int");
 
                     b.Property<string>("Complemento_Endereco")
@@ -193,7 +216,7 @@ namespace Hotel_CodeFirst.Migrations
 
                     b.HasKey("Codigo_Endereco");
 
-                    b.HasIndex("ClienteCodigo_Cliente");
+                    b.HasIndex("Codigo_Cliente");
 
                     b.ToTable("Enderecos");
                 });
@@ -255,16 +278,16 @@ namespace Hotel_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo_Funcionario"));
 
+                    b.Property<int>("Codigo_TipoFuncionario")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome_Funcionario")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TipoFuncionarioCodigo_TipoFuncionario")
-                        .HasColumnType("int");
-
                     b.HasKey("Codigo_Funcionario");
 
-                    b.HasIndex("TipoFuncionarioCodigo_TipoFuncionario");
+                    b.HasIndex("Codigo_TipoFuncionario");
 
                     b.ToTable("Funcionarios");
                 });
@@ -277,6 +300,9 @@ namespace Hotel_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo_NotaFiscal"));
 
+                    b.Property<int>("Codigo_TipoPagamento")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Data_NotaFiscal")
                         .HasColumnType("datetime2");
 
@@ -285,36 +311,35 @@ namespace Hotel_CodeFirst.Migrations
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)");
 
-                    b.Property<int>("TipoPagamentoCodigo_TipoPagamento")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("ValorTotal_NotaFiscal")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Codigo_NotaFiscal");
 
-                    b.HasIndex("TipoPagamentoCodigo_TipoPagamento");
+                    b.HasIndex("Codigo_TipoPagamento");
 
                     b.ToTable("NotaFiscais");
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.Quarto", b =>
                 {
-                    b.Property<string>("Numero_Quarto")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<int?>("FilialCodigo_Filial")
+                    b.Property<int>("Numero_Quarto")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("TipoQuartoCodigo_TipoQuarto")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Numero_Quarto"));
+
+                    b.Property<int>("Codigo_Filial")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Codigo_TipoQuarto")
                         .HasColumnType("int");
 
                     b.HasKey("Numero_Quarto");
 
-                    b.HasIndex("FilialCodigo_Filial");
+                    b.HasIndex("Codigo_Filial");
 
-                    b.HasIndex("TipoQuartoCodigo_TipoQuarto");
+                    b.HasIndex("Codigo_TipoQuarto");
 
                     b.ToTable("Quartos");
                 });
@@ -330,10 +355,13 @@ namespace Hotel_CodeFirst.Migrations
                     b.Property<bool>("Cancelada_Reserva")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ClienteCodigo_Cliente")
+                    b.Property<int>("Codigo_Cliente")
                         .HasColumnType("int");
 
-                    b.Property<int>("ContaReservaCodigo_ContaReserva")
+                    b.Property<int?>("Codigo_ContaReserva")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Codigo_NotaFiscal")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataFim_Reserva")
@@ -342,26 +370,18 @@ namespace Hotel_CodeFirst.Migrations
                     b.Property<DateTime>("DataInicio_Reserva")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("NotaFiscalCodigo_NotaFiscal")
+                    b.Property<int>("Numero_Quarto")
                         .HasColumnType("int");
-
-                    b.Property<string>("Numero_Quarto")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("QuartoNumero_Quarto")
-                        .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Codigo_Reserva");
 
-                    b.HasIndex("ClienteCodigo_Cliente");
+                    b.HasIndex("Codigo_Cliente");
 
-                    b.HasIndex("ContaReservaCodigo_ContaReserva");
+                    b.HasIndex("Codigo_ContaReserva");
 
-                    b.HasIndex("NotaFiscalCodigo_NotaFiscal");
+                    b.HasIndex("Codigo_NotaFiscal");
 
-                    b.HasIndex("QuartoNumero_Quarto");
+                    b.HasIndex("Numero_Quarto");
 
                     b.ToTable("Reservas");
                 });
@@ -416,7 +436,7 @@ namespace Hotel_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo_Telefone"));
 
-                    b.Property<int>("ClienteCodigo_Cliente")
+                    b.Property<int>("Codigo_Cliente")
                         .HasColumnType("int");
 
                     b.Property<string>("Numero_Telefone")
@@ -426,7 +446,7 @@ namespace Hotel_CodeFirst.Migrations
 
                     b.HasKey("Codigo_Telefone");
 
-                    b.HasIndex("ClienteCodigo_Cliente");
+                    b.HasIndex("Codigo_Cliente");
 
                     b.ToTable("Telefones");
                 });
@@ -489,156 +509,132 @@ namespace Hotel_CodeFirst.Migrations
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.ConsumoFrigobar", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", "ContaReserva")
+                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", null)
                         .WithMany()
-                        .HasForeignKey("ContaReservaCodigo_ContaReserva")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_ContaReserva")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Hotel_CodeFirst.Models.Frigobar", "Frigobar")
+                    b.HasOne("Hotel_CodeFirst.Models.Frigobar", null)
                         .WithMany()
-                        .HasForeignKey("FrigobarCodigo_Frigobar")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_Frigobar")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("ContaReserva");
-
-                    b.Navigation("Frigobar");
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.ConsumoLavanderia", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", "ContaReserva")
+                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", null)
                         .WithMany()
-                        .HasForeignKey("ContaReservaCodigo_ContaReserva")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_ContaReserva")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Hotel_CodeFirst.Models.ServicoLavanderia", "ServicoLavanderia")
+                    b.HasOne("Hotel_CodeFirst.Models.ServicoLavanderia", null)
                         .WithMany()
-                        .HasForeignKey("ServicoLavanderiaCodigo_ServicoLavanderia")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_ServicoLavanderia")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("ContaReserva");
-
-                    b.Navigation("ServicoLavanderia");
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.ConsumoRestaurante", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", "ContaReserva")
+                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", null)
                         .WithMany()
-                        .HasForeignKey("ContaReservaCodigo_ContaReserva")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_ContaReserva")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Hotel_CodeFirst.Models.Restaurante", "Restaurante")
+                    b.HasOne("Hotel_CodeFirst.Models.Restaurante", null)
                         .WithMany()
-                        .HasForeignKey("RestauranteCodigo_Restaurante")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_Restaurante")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
 
-                    b.Navigation("ContaReserva");
-
-                    b.Navigation("Restaurante");
+            modelBuilder.Entity("Hotel_CodeFirst.Models.Email", b =>
+                {
+                    b.HasOne("Hotel_CodeFirst.Models.Cliente", null)
+                        .WithMany()
+                        .HasForeignKey("Codigo_Cliente")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.Endereco", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.Cliente", "Cliente")
+                    b.HasOne("Hotel_CodeFirst.Models.Cliente", null)
                         .WithMany()
-                        .HasForeignKey("ClienteCodigo_Cliente")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_Cliente")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.Funcionario", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.TipoFuncionario", "TipoFuncionario")
+                    b.HasOne("Hotel_CodeFirst.Models.TipoFuncionario", null)
                         .WithMany()
-                        .HasForeignKey("TipoFuncionarioCodigo_TipoFuncionario")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_TipoFuncionario")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("TipoFuncionario");
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.NotaFiscal", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.TipoPagamento", "TipoPagamento")
+                    b.HasOne("Hotel_CodeFirst.Models.TipoPagamento", null)
                         .WithMany()
-                        .HasForeignKey("TipoPagamentoCodigo_TipoPagamento")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_TipoPagamento")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("TipoPagamento");
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.Quarto", b =>
                 {
                     b.HasOne("Hotel_CodeFirst.Models.Filial", null)
-                        .WithMany("Quartos")
-                        .HasForeignKey("FilialCodigo_Filial");
-
-                    b.HasOne("Hotel_CodeFirst.Models.TipoQuarto", "TipoQuarto")
                         .WithMany()
-                        .HasForeignKey("TipoQuartoCodigo_TipoQuarto")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_Filial")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("TipoQuarto");
+                    b.HasOne("Hotel_CodeFirst.Models.TipoQuarto", null)
+                        .WithMany()
+                        .HasForeignKey("Codigo_TipoQuarto")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.Reserva", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.Cliente", "Cliente")
+                    b.HasOne("Hotel_CodeFirst.Models.Cliente", null)
                         .WithMany()
-                        .HasForeignKey("ClienteCodigo_Cliente")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_Cliente")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", "ContaReserva")
+                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", null)
                         .WithMany()
-                        .HasForeignKey("ContaReservaCodigo_ContaReserva")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_ContaReserva")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Hotel_CodeFirst.Models.ContaReserva", null)
+                        .WithMany()
+                        .HasForeignKey("Codigo_NotaFiscal")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Hotel_CodeFirst.Models.Quarto", null)
+                        .WithMany()
+                        .HasForeignKey("Numero_Quarto")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Hotel_CodeFirst.Models.NotaFiscal", "NotaFiscal")
-                        .WithMany()
-                        .HasForeignKey("NotaFiscalCodigo_NotaFiscal")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hotel_CodeFirst.Models.Quarto", "Quarto")
-                        .WithMany()
-                        .HasForeignKey("QuartoNumero_Quarto");
-
-                    b.Navigation("Cliente");
-
-                    b.Navigation("ContaReserva");
-
-                    b.Navigation("NotaFiscal");
-
-                    b.Navigation("Quarto");
                 });
 
             modelBuilder.Entity("Hotel_CodeFirst.Models.Telefone", b =>
                 {
-                    b.HasOne("Hotel_CodeFirst.Models.Cliente", "Cliente")
+                    b.HasOne("Hotel_CodeFirst.Models.Cliente", null)
                         .WithMany()
-                        .HasForeignKey("ClienteCodigo_Cliente")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Codigo_Cliente")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("Hotel_CodeFirst.Models.Filial", b =>
-                {
-                    b.Navigation("Quartos");
                 });
 #pragma warning restore 612, 618
         }

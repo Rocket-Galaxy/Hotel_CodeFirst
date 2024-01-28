@@ -18,14 +18,12 @@ namespace Hotel_CodeFirst.Controllers
             _context = context;
         }
 
-        // GET: api/Cliente
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
             return await _context.Clientes.ToListAsync();
         }
 
-        // GET: api/Cliente/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
@@ -39,7 +37,6 @@ namespace Hotel_CodeFirst.Controllers
             return cliente;
         }
 
-        // POST: api/Cliente
         [HttpPost]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {
@@ -49,7 +46,6 @@ namespace Hotel_CodeFirst.Controllers
             return CreatedAtAction(nameof(GetCliente), new { id = cliente.Codigo_Cliente }, cliente);
         }
 
-        // PUT: api/Cliente/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
@@ -79,7 +75,6 @@ namespace Hotel_CodeFirst.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Cliente/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {

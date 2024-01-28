@@ -1,13 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Hotel_CodeFirst.Models
 { 
     public class Endereco
     {
         [Key]
-        public int Codigo_Endereco { get; set; }
 
-        [Required]
-        public Cliente Cliente { get; set; }
+        public int Codigo_Endereco { get; set; }
+        // Relacionamento muitos para um com Filial
+        [ForeignKey("Codigo_Cliente")]
+        public int Codigo_Cliente { get; set; }
 
         [Required]
         [StringLength(100)]

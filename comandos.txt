@@ -7,3 +7,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Relational
 dotnet add package Swashbuckle.AspNetCore
 dotnet ef migrations add CreateDatabase
 dotnet ef database update
+
+
+caso queira deletar as migrations 
+dotnet ef migrations remove

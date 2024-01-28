@@ -137,12 +137,32 @@ namespace Hotel_CodeFirst.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Emails",
+                columns: table => new
+                {
+                    Codigo_Email = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Codigo_Cliente = table.Column<int>(type: "int", nullable: false),
+                    Endereco_Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Emails", x => x.Codigo_Email);
+                    table.ForeignKey(
+                        name: "FK_Emails_Clientes_Codigo_Cliente",
+                        column: x => x.Codigo_Cliente,
+                        principalTable: "Clientes",
+                        principalColumn: "Codigo_Cliente",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Enderecos",
                 columns: table => new
                 {
                     Codigo_Endereco = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClienteCodigo_Cliente = table.Column<int>(type: "int", nullable: false),
+                    Codigo_Cliente = table.Column<int>(type: "int", nullable: false),
                     Rua_Endereco = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Numero_Endereco = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Complemento_Endereco = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
@@ -155,11 +175,11 @@ namespace Hotel_CodeFirst.Migrations
                 {
                     table.PrimaryKey("PK_Enderecos", x => x.Codigo_Endereco);
                     table.ForeignKey(
-                        name: "FK_Enderecos_Clientes_ClienteCodigo_Cliente",
-                        column: x => x.ClienteCodigo_Cliente,
+                        name: "FK_Enderecos_Clientes_Codigo_Cliente",
+                        column: x => x.Codigo_Cliente,
                         principalTable: "Clientes",
                         principalColumn: "Codigo_Cliente",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,17 +189,17 @@ namespace Hotel_CodeFirst.Migrations
                     Codigo_Telefone = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Numero_Telefone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ClienteCodigo_Cliente = table.Column<int>(type: "int", nullable: false)
+                    Codigo_Cliente = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Telefones", x => x.Codigo_Telefone);
                     table.ForeignKey(
-                        name: "FK_Telefones_Clientes_ClienteCodigo_Cliente",
-                        column: x => x.ClienteCodigo_Cliente,
+                        name: "FK_Telefones_Clientes_Codigo_Cliente",
+                        column: x => x.Codigo_Cliente,
                         principalTable: "Clientes",
                         principalColumn: "Codigo_Cliente",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,24 +209,24 @@ namespace Hotel_CodeFirst.Migrations
                     Codigo_ConsumoFrigobar = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
-                    ContaReservaCodigo_ContaReserva = table.Column<int>(type: "int", nullable: false),
-                    FrigobarCodigo_Frigobar = table.Column<int>(type: "int", nullable: false)
+                    Codigo_ContaReserva = table.Column<int>(type: "int", nullable: false),
+                    Codigo_Frigobar = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ConsumoFrigobares", x => x.Codigo_ConsumoFrigobar);
                     table.ForeignKey(
-                        name: "FK_ConsumoFrigobares_ContasReserva_ContaReservaCodigo_ContaReserva",
-                        column: x => x.ContaReservaCodigo_ContaReserva,
+                        name: "FK_ConsumoFrigobares_ContasReserva_Codigo_ContaReserva",
+                        column: x => x.Codigo_ContaReserva,
                         principalTable: "ContasReserva",
                         principalColumn: "Codigo_ContaReserva",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ConsumoFrigobares_Frigobares_FrigobarCodigo_Frigobar",
-                        column: x => x.FrigobarCodigo_Frigobar,
+                        name: "FK_ConsumoFrigobares_Frigobares_Codigo_Frigobar",
+                        column: x => x.Codigo_Frigobar,
                         principalTable: "Frigobares",
                         principalColumn: "Codigo_Frigobar",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,24 +237,24 @@ namespace Hotel_CodeFirst.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
                     EntregueNoQuarto = table.Column<bool>(type: "bit", nullable: false),
-                    ContaReservaCodigo_ContaReserva = table.Column<int>(type: "int", nullable: false),
-                    RestauranteCodigo_Restaurante = table.Column<int>(type: "int", nullable: false)
+                    Codigo_ContaReserva = table.Column<int>(type: "int", nullable: false),
+                    Codigo_Restaurante = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ConsumoRestaurantes", x => x.Codigo_ConsumoRestaurante);
                     table.ForeignKey(
-                        name: "FK_ConsumoRestaurantes_ContasReserva_ContaReservaCodigo_ContaReserva",
-                        column: x => x.ContaReservaCodigo_ContaReserva,
+                        name: "FK_ConsumoRestaurantes_ContasReserva_Codigo_ContaReserva",
+                        column: x => x.Codigo_ContaReserva,
                         principalTable: "ContasReserva",
                         principalColumn: "Codigo_ContaReserva",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ConsumoRestaurantes_Restaurantes_RestauranteCodigo_Restaurante",
-                        column: x => x.RestauranteCodigo_Restaurante,
+                        name: "FK_ConsumoRestaurantes_Restaurantes_Codigo_Restaurante",
+                        column: x => x.Codigo_Restaurante,
                         principalTable: "Restaurantes",
                         principalColumn: "Codigo_Restaurante",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -244,24 +264,24 @@ namespace Hotel_CodeFirst.Migrations
                     Codigo_ConsumoLavanderia = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
-                    ContaReservaCodigo_ContaReserva = table.Column<int>(type: "int", nullable: false),
-                    ServicoLavanderiaCodigo_ServicoLavanderia = table.Column<int>(type: "int", nullable: false)
+                    Codigo_ContaReserva = table.Column<int>(type: "int", nullable: false),
+                    Codigo_ServicoLavanderia = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ConsumosLavanderia", x => x.Codigo_ConsumoLavanderia);
                     table.ForeignKey(
-                        name: "FK_ConsumosLavanderia_ContasReserva_ContaReservaCodigo_ContaReserva",
-                        column: x => x.ContaReservaCodigo_ContaReserva,
+                        name: "FK_ConsumosLavanderia_ContasReserva_Codigo_ContaReserva",
+                        column: x => x.Codigo_ContaReserva,
                         principalTable: "ContasReserva",
                         principalColumn: "Codigo_ContaReserva",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ConsumosLavanderia_ServicosLavanderia_ServicoLavanderiaCodigo_ServicoLavanderia",
-                        column: x => x.ServicoLavanderiaCodigo_ServicoLavanderia,
+                        name: "FK_ConsumosLavanderia_ServicosLavanderia_Codigo_ServicoLavanderia",
+                        column: x => x.Codigo_ServicoLavanderia,
                         principalTable: "ServicosLavanderia",
                         principalColumn: "Codigo_ServicoLavanderia",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -271,17 +291,17 @@ namespace Hotel_CodeFirst.Migrations
                     Codigo_Funcionario = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome_Funcionario = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoFuncionarioCodigo_TipoFuncionario = table.Column<int>(type: "int", nullable: false)
+                    Codigo_TipoFuncionario = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Funcionarios", x => x.Codigo_Funcionario);
                     table.ForeignKey(
-                        name: "FK_Funcionarios_TipoFuncionarios_TipoFuncionarioCodigo_TipoFuncionario",
-                        column: x => x.TipoFuncionarioCodigo_TipoFuncionario,
+                        name: "FK_Funcionarios_TipoFuncionarios_Codigo_TipoFuncionario",
+                        column: x => x.Codigo_TipoFuncionario,
                         principalTable: "TipoFuncionarios",
                         principalColumn: "Codigo_TipoFuncionario",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -293,41 +313,43 @@ namespace Hotel_CodeFirst.Migrations
                     Numero_NotaFiscal = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
                     Data_NotaFiscal = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ValorTotal_NotaFiscal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TipoPagamentoCodigo_TipoPagamento = table.Column<int>(type: "int", nullable: false)
+                    Codigo_TipoPagamento = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NotaFiscais", x => x.Codigo_NotaFiscal);
                     table.ForeignKey(
-                        name: "FK_NotaFiscais_TipoPagementos_TipoPagamentoCodigo_TipoPagamento",
-                        column: x => x.TipoPagamentoCodigo_TipoPagamento,
+                        name: "FK_NotaFiscais_TipoPagementos_Codigo_TipoPagamento",
+                        column: x => x.Codigo_TipoPagamento,
                         principalTable: "TipoPagementos",
                         principalColumn: "Codigo_TipoPagamento",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Quartos",
                 columns: table => new
                 {
-                    Numero_Quarto = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    TipoQuartoCodigo_TipoQuarto = table.Column<int>(type: "int", nullable: false),
-                    FilialCodigo_Filial = table.Column<int>(type: "int", nullable: true)
+                    Numero_Quarto = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Codigo_Filial = table.Column<int>(type: "int", nullable: false),
+                    Codigo_TipoQuarto = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Quartos", x => x.Numero_Quarto);
                     table.ForeignKey(
-                        name: "FK_Quartos_Filiais_FilialCodigo_Filial",
-                        column: x => x.FilialCodigo_Filial,
+                        name: "FK_Quartos_Filiais_Codigo_Filial",
+                        column: x => x.Codigo_Filial,
                         principalTable: "Filiais",
-                        principalColumn: "Codigo_Filial");
+                        principalColumn: "Codigo_Filial",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Quartos_TipoQuartos_TipoQuartoCodigo_TipoQuarto",
-                        column: x => x.TipoQuartoCodigo_TipoQuarto,
+                        name: "FK_Quartos_TipoQuartos_Codigo_TipoQuarto",
+                        column: x => x.Codigo_TipoQuarto,
                         principalTable: "TipoQuartos",
                         principalColumn: "Codigo_TipoQuarto",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -339,119 +361,124 @@ namespace Hotel_CodeFirst.Migrations
                     DataInicio_Reserva = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataFim_Reserva = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Cancelada_Reserva = table.Column<bool>(type: "bit", nullable: false),
-                    Numero_Quarto = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    QuartoNumero_Quarto = table.Column<string>(type: "nvarchar(5)", nullable: true),
-                    ClienteCodigo_Cliente = table.Column<int>(type: "int", nullable: false),
-                    ContaReservaCodigo_ContaReserva = table.Column<int>(type: "int", nullable: false),
-                    NotaFiscalCodigo_NotaFiscal = table.Column<int>(type: "int", nullable: false)
+                    Numero_Quarto = table.Column<int>(type: "int", nullable: false),
+                    Codigo_ContaReserva = table.Column<int>(type: "int", nullable: true),
+                    Codigo_NotaFiscal = table.Column<int>(type: "int", nullable: true),
+                    Codigo_Cliente = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reservas", x => x.Codigo_Reserva);
                     table.ForeignKey(
-                        name: "FK_Reservas_Clientes_ClienteCodigo_Cliente",
-                        column: x => x.ClienteCodigo_Cliente,
+                        name: "FK_Reservas_Clientes_Codigo_Cliente",
+                        column: x => x.Codigo_Cliente,
                         principalTable: "Clientes",
                         principalColumn: "Codigo_Cliente",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reservas_ContasReserva_ContaReservaCodigo_ContaReserva",
-                        column: x => x.ContaReservaCodigo_ContaReserva,
+                        name: "FK_Reservas_ContasReserva_Codigo_ContaReserva",
+                        column: x => x.Codigo_ContaReserva,
                         principalTable: "ContasReserva",
                         principalColumn: "Codigo_ContaReserva",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reservas_NotaFiscais_NotaFiscalCodigo_NotaFiscal",
-                        column: x => x.NotaFiscalCodigo_NotaFiscal,
-                        principalTable: "NotaFiscais",
-                        principalColumn: "Codigo_NotaFiscal",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Reservas_ContasReserva_Codigo_NotaFiscal",
+                        column: x => x.Codigo_NotaFiscal,
+                        principalTable: "ContasReserva",
+                        principalColumn: "Codigo_ContaReserva",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_Reservas_Quartos_QuartoNumero_Quarto",
-                        column: x => x.QuartoNumero_Quarto,
+                        name: "FK_Reservas_Quartos_Numero_Quarto",
+                        column: x => x.Numero_Quarto,
                         principalTable: "Quartos",
-                        principalColumn: "Numero_Quarto");
+                        principalColumn: "Numero_Quarto",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumoFrigobares_ContaReservaCodigo_ContaReserva",
+                name: "IX_ConsumoFrigobares_Codigo_ContaReserva",
                 table: "ConsumoFrigobares",
-                column: "ContaReservaCodigo_ContaReserva");
+                column: "Codigo_ContaReserva");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumoFrigobares_FrigobarCodigo_Frigobar",
+                name: "IX_ConsumoFrigobares_Codigo_Frigobar",
                 table: "ConsumoFrigobares",
-                column: "FrigobarCodigo_Frigobar");
+                column: "Codigo_Frigobar");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumoRestaurantes_ContaReservaCodigo_ContaReserva",
+                name: "IX_ConsumoRestaurantes_Codigo_ContaReserva",
                 table: "ConsumoRestaurantes",
-                column: "ContaReservaCodigo_ContaReserva");
+                column: "Codigo_ContaReserva");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumoRestaurantes_RestauranteCodigo_Restaurante",
+                name: "IX_ConsumoRestaurantes_Codigo_Restaurante",
                 table: "ConsumoRestaurantes",
-                column: "RestauranteCodigo_Restaurante");
+                column: "Codigo_Restaurante");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumosLavanderia_ContaReservaCodigo_ContaReserva",
+                name: "IX_ConsumosLavanderia_Codigo_ContaReserva",
                 table: "ConsumosLavanderia",
-                column: "ContaReservaCodigo_ContaReserva");
+                column: "Codigo_ContaReserva");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumosLavanderia_ServicoLavanderiaCodigo_ServicoLavanderia",
+                name: "IX_ConsumosLavanderia_Codigo_ServicoLavanderia",
                 table: "ConsumosLavanderia",
-                column: "ServicoLavanderiaCodigo_ServicoLavanderia");
+                column: "Codigo_ServicoLavanderia");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enderecos_ClienteCodigo_Cliente",
+                name: "IX_Emails_Codigo_Cliente",
+                table: "Emails",
+                column: "Codigo_Cliente");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enderecos_Codigo_Cliente",
                 table: "Enderecos",
-                column: "ClienteCodigo_Cliente");
+                column: "Codigo_Cliente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Funcionarios_TipoFuncionarioCodigo_TipoFuncionario",
+                name: "IX_Funcionarios_Codigo_TipoFuncionario",
                 table: "Funcionarios",
-                column: "TipoFuncionarioCodigo_TipoFuncionario");
+                column: "Codigo_TipoFuncionario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NotaFiscais_TipoPagamentoCodigo_TipoPagamento",
+                name: "IX_NotaFiscais_Codigo_TipoPagamento",
                 table: "NotaFiscais",
-                column: "TipoPagamentoCodigo_TipoPagamento");
+                column: "Codigo_TipoPagamento");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Quartos_FilialCodigo_Filial",
+                name: "IX_Quartos_Codigo_Filial",
                 table: "Quartos",
-                column: "FilialCodigo_Filial");
+                column: "Codigo_Filial");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Quartos_TipoQuartoCodigo_TipoQuarto",
+                name: "IX_Quartos_Codigo_TipoQuarto",
                 table: "Quartos",
-                column: "TipoQuartoCodigo_TipoQuarto");
+                column: "Codigo_TipoQuarto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservas_ClienteCodigo_Cliente",
+                name: "IX_Reservas_Codigo_Cliente",
                 table: "Reservas",
-                column: "ClienteCodigo_Cliente");
+                column: "Codigo_Cliente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservas_ContaReservaCodigo_ContaReserva",
+                name: "IX_Reservas_Codigo_ContaReserva",
                 table: "Reservas",
-                column: "ContaReservaCodigo_ContaReserva");
+                column: "Codigo_ContaReserva");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservas_NotaFiscalCodigo_NotaFiscal",
+                name: "IX_Reservas_Codigo_NotaFiscal",
                 table: "Reservas",
-                column: "NotaFiscalCodigo_NotaFiscal");
+                column: "Codigo_NotaFiscal");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservas_QuartoNumero_Quarto",
+                name: "IX_Reservas_Numero_Quarto",
                 table: "Reservas",
-                column: "QuartoNumero_Quarto");
+                column: "Numero_Quarto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Telefones_ClienteCodigo_Cliente",
+                name: "IX_Telefones_Codigo_Cliente",
                 table: "Telefones",
-                column: "ClienteCodigo_Cliente");
+                column: "Codigo_Cliente");
         }
 
         /// <inheritdoc />
@@ -467,10 +494,16 @@ namespace Hotel_CodeFirst.Migrations
                 name: "ConsumosLavanderia");
 
             migrationBuilder.DropTable(
+                name: "Emails");
+
+            migrationBuilder.DropTable(
                 name: "Enderecos");
 
             migrationBuilder.DropTable(
                 name: "Funcionarios");
+
+            migrationBuilder.DropTable(
+                name: "NotaFiscais");
 
             migrationBuilder.DropTable(
                 name: "Reservas");
@@ -491,19 +524,16 @@ namespace Hotel_CodeFirst.Migrations
                 name: "TipoFuncionarios");
 
             migrationBuilder.DropTable(
-                name: "ContasReserva");
+                name: "TipoPagementos");
 
             migrationBuilder.DropTable(
-                name: "NotaFiscais");
+                name: "ContasReserva");
 
             migrationBuilder.DropTable(
                 name: "Quartos");
 
             migrationBuilder.DropTable(
                 name: "Clientes");
-
-            migrationBuilder.DropTable(
-                name: "TipoPagementos");
 
             migrationBuilder.DropTable(
                 name: "Filiais");

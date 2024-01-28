@@ -17,14 +17,12 @@ public class FilialController : ControllerBase
         _context = context;
     }
 
-    // GET: api/Filial
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Filial>>> GetFiliais()
     {
         return await _context.Filiais.ToListAsync();
     }
 
-    // GET: api/Filial/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Filial>> GetFilial(int id)
     {
@@ -38,7 +36,6 @@ public class FilialController : ControllerBase
         return filial;
     }
 
-    // POST: api/Filial
     [HttpPost]
     public async Task<ActionResult<Filial>> PostFilial(Filial filial)
     {
@@ -48,7 +45,6 @@ public class FilialController : ControllerBase
         return CreatedAtAction("GetFilial", new { id = filial.Codigo_Filial }, filial);
     }
 
-    // PUT: api/Filial/5
     [HttpPut("{id}")]
     public async Task<IActionResult> PutFilial(int id, Filial filial)
     {
@@ -78,24 +74,22 @@ public class FilialController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/Filial/5
-    [HttpDelete("{id}")]
+   [HttpDelete("{id}")]
     public async Task<ActionResult<Filial>> DeleteFilial(int id)
     {
-        var filial = await _context.Filiais.Include(f => f.Quartos).FirstOrDefaultAsync(f => f.Codigo_Filial == id);
+        var filial = await _context.Filiais.FindAsync(id);
 
         if (filial == null)
         {
             return NotFound();
         }
 
-        _context.Quartos.RemoveRange(filial.Quartos);
         _context.Filiais.Remove(filial);
-
         await _context.SaveChangesAsync();
 
         return filial;
     }
+
 
     private bool FilialExists(int id)
     {

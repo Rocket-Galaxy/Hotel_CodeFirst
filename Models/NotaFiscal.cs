@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel_CodeFirst.Models
 {
     public class NotaFiscal
     {
         [Key]
+
         public int Codigo_NotaFiscal { get; set; }
 
         [Required]
@@ -18,7 +21,9 @@ namespace Hotel_CodeFirst.Models
 
         [Required]
         public decimal ValorTotal_NotaFiscal { get; set; }
+        [Required]
+        [ForeignKey("Codigo_TipoPagamento")]
+        public int Codigo_TipoPagamento { get; set; }
 
-        public TipoPagamento TipoPagamento { get; set; }
     }
 }
